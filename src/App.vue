@@ -4,29 +4,43 @@
   <div>选择一位美女服务</div>
   <div>
   <button
-   v-for="(item,index) in girls" 
+   v-for="(item,index) in data.girls" 
    v-bind:key="index"
-   @click="selectGirlFun(index)"
+   @click="data.selectGirlFun(index)"
    >
     {{index}}:{{item}}
   </button>
-  <div>您选择了--{{selectGirl}}--为你服务</div>
+  <div>您选择了--{{data.selectGirl}}--为你服务</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+//reactive()
+import { defineComponent, ref, reactive } from 'vue';
 
+interface DataProps {
+girls: string[];
+selectGirl: string;
+selectGirlFun: (index: number) => void;
+}
 
-export default defineComponent({
+export default ({
   name: 'App',
   setup(){
-    const girls = ref(["苍井","三央","爱乃"]);
-    const selectGirl = ref("");
-    const selectGirlFun = (index: number)=>{
-      selectGirl.value = girls.value[index]
-    }
-    return{girls,selectGirl,selectGirlFun}
+    const data: DataProps = reactive({
+girls: ["苍井","三央","爱乃"],
+selectGirl: "",
+selectGirlFun: (index: number)=>{
+   data.selectGirl= data.girls[index]
+}
+    })
+
+    // const girls = ref(["苍井","三央","爱乃"]);
+    // const selectGirl = ref("");
+    // const selectGirlFun = (index: number)=>{
+    //   selectGirl.value = girls.value[index]
+    // }
+    return{data}
   }
 });
 </script>
