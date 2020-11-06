@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <!-- <img alt="Vue logo" src="./assets/logo.png">
   <h2>红浪漫 </h2>
   <div>选择一位美女服务</div>
   <div>
@@ -13,7 +13,9 @@
   <div>您选择了--{{selectGirl}}--为你服务</div>
   <div><button @click="overAction">点餐完毕</button></div>
   <div>{{overText}}</div>
-  </div>
+  </div> -->
+  <div>{{nowTime}}</div>
+  <div><button @click="getNowTime">显示当前时间</button></div>
 </template>
 
 <script lang="ts">
@@ -22,15 +24,16 @@ import {
   defineComponent, ref, reactive, watch,
   toRefs, onBeforeMount, onMounted,
   onBeforeUpdate, onRenderTracked, onRenderTriggered} from 'vue';
-
+import {nowTime,getNowTime} from './hooks/useNowTime';
 interface DataProps {
-girls: string[];
-selectGirl: string;
-selectGirlFun: (index: number) => void;
+    girls: string[];
+    selectGirl: string;
+    selectGirlFun: (index: number) => void;
 }
 
 export default ({
   name: 'App',
+  /*
   setup(){
     console.log("1-开始创建组件---setup()")
     //reactive() 函数接收一个对象作为参数，并返回一个代理对象。
@@ -94,6 +97,11 @@ watch([overText,()=>data.selectGirl], (newValue,oldValue)=>{
   }
   
   }
+  */
+ setup(){
+
+   return {nowTime,getNowTime};
+ }
 });
 </script>
 
