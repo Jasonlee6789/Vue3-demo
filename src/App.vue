@@ -1,9 +1,13 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png">
-  <h2>红浪漫 </h2>
-  <div>选择一位美女服务</div>
-  <div>
-  <button
+   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+    <div>
+  <div>{{nowTime}}</div>
+  <div><button @click="getNowTime">显示当前开始时间</button></div>
+  <h2>红浪漫洗浴中心 </h2>
+  <div>后台随机选择一位美女为您服务，不满意可刷新再call</div>
+  <div v-if="loading">Loading...</div>
+  <img v-if="loaded" :src="result.imgUrl" />
+  <!-- <button
    v-for="(item,index) in girls" 
    v-bind:key="index"
    @click="selectGirlFun(index)"
@@ -12,19 +16,20 @@
   </button>
   <div>您选择了--{{selectGirl}}--为你服务</div>
   <div><button @click="overAction">点餐完毕</button></div>
-  <div>{{overText}}</div>
-  </div> -->
-  <div>{{nowTime}}</div>
-  <div><button @click="getNowTime">显示当前时间</button></div>
+  <div>{{overText}}</div> -->
+    </div> 
+  
 </template>
 
 <script lang="ts">
 //reactive()
+//axios
 import { 
   defineComponent, ref, reactive, watch,
   toRefs, onBeforeMount, onMounted,
   onBeforeUpdate, onRenderTracked, onRenderTriggered} from 'vue';
 import {nowTime,getNowTime} from './hooks/useNowTime';
+import useUrlAxios from './hooks/useURLAxios';
 interface DataProps {
     girls: string[];
     selectGirl: string;
@@ -99,8 +104,8 @@ watch([overText,()=>data.selectGirl], (newValue,oldValue)=>{
   }
   */
  setup(){
-
-   return {nowTime,getNowTime};
+const {result,loading,loaded} = useUrlAxios("https://apiblog.jspang.com/default/getGirl")
+   return {result,loading,loaded,nowTime,getNowTime};
  }
 });
 </script>
